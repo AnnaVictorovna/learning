@@ -10,17 +10,18 @@ public class Ex1 {
 
     public FuncResult mainFunc(int[] inputArray) {
         int max = inputArray[0];
+        int min = inputArray[0];
         for (int i : inputArray) {
             if (i > max) {
                 max = i;
             }
-        }
-        int min = inputArray[0];
-        for (int i : inputArray) {
             if (i < min) {
                 min = i;
             }
         }
+
+        int maxValue = inputArray[0];
+        int minIndexOfMaxValue = 0;
         int minValue = inputArray[0];
         int minIndexOfMinValue = 0;
         for (int i = 1; i < inputArray.length; i++) {
@@ -28,11 +29,6 @@ public class Ex1 {
                 minValue = inputArray[i];
                 minIndexOfMinValue = i;
             }
-        }
-
-        int maxValue = inputArray[0];
-        int minIndexOfMaxValue = 0;
-        for (int i = 1; i < inputArray.length; i++) {
             if (inputArray[i] > maxValue) {
                 maxValue = inputArray[i];
                 minIndexOfMaxValue = i;
@@ -40,33 +36,24 @@ public class Ex1 {
         }
 
         int maxIndexOfMinValue = 0;
+        int maxIndexOfMaxValue = 0;
         for (int i = 0; i < inputArray.length; i++) {
             if (inputArray[i] == min) {
                 maxIndexOfMinValue = i;
             }
-        }
-
-        int maxIndexOfMaxValue = 0;
-        for (int i = 0; i < inputArray.length; i++) {
             if (inputArray[i] == max) {
                 maxIndexOfMaxValue = i;
             }
         }
-        int theBiggestSum = 0;
+
         int firstIndex = 0;
         int lastIndex = 0;
-        int[] ar = {minIndexOfMinValue, maxIndexOfMinValue, minIndexOfMaxValue, maxIndexOfMaxValue};
-        for (int i = 0; i < ar.length; i++) {
-            if (ar[0] + ar[3] >= theBiggestSum) {
-                theBiggestSum = ar[0] + ar[3];
-                if (ar[0] < ar[3]) {
-                    firstIndex = ar[0];
-                    lastIndex = ar[3];
-                } else if (ar[0] > ar[3]) {
-                    firstIndex = ar[3];
-                    lastIndex = ar[0];
-                }
-            }
+        if (minIndexOfMinValue < maxIndexOfMaxValue) {
+            firstIndex = minIndexOfMinValue;
+            lastIndex = maxIndexOfMaxValue;
+        } else if (minIndexOfMinValue > maxIndexOfMaxValue) {
+            firstIndex = maxIndexOfMaxValue;
+            lastIndex = minIndexOfMinValue;
         }
 
         int total = 0;
