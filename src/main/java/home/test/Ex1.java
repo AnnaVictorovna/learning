@@ -2,26 +2,66 @@ package home.test;
 
 public class Ex1 {
 
-    public FuncResult mainFunc(int[] inputArray) {   int max = 0;
-        int maxIndexOfMaxValue = 0;
-        int minIndexOfMinValue = 0;
-        int total = 0;
+    public FuncResult mainFunc(int[] inputArray) {
+        int max = 0;
+        int min = 0;
         int minValue = inputArray[0];
+        int maxValue = inputArray[0];
+        int[] ar = new int[4];
         for (int i = 0; i < inputArray.length; i++) {
             if (inputArray[i] > max) {
                 max = inputArray[i];
             }
+            if (inputArray[i] < min) {
+                min = inputArray[i];
+            }
+            if (inputArray[i] == min) {
+                ar[1] = i;
+            }
             if (inputArray[i] == max) {
-                maxIndexOfMaxValue = i;
+                ar[3] = i;
             }
             if (i != 0 && inputArray[i] < minValue) {
                 minValue = inputArray[i];
-                minIndexOfMinValue = i;
+                ar[0] = i;
+            }
+            if (i != 0 && inputArray[i] > maxValue) {
+                maxValue = inputArray[i];
+                ar[2] = i;
             }
         }
-        for (int j = minIndexOfMinValue + 1; j < maxIndexOfMaxValue; j++) {
-            total += inputArray[j];
+        int theBiggestSum = 0;
+        int firstIndex = 0;
+        int lastIndex = 0;
+        for (int i = 0; i < 2; i++) {
+            int a = ar[i];
+            int b = ar[i+2];
+            int c = ar[3-i];
+            if (Math.abs(a - b) >= theBiggestSum) {
+                theBiggestSum = a + b;
+                if (a < b) {
+                    firstIndex = a;
+                    lastIndex = b;
+                } else if (a > b) {
+                    firstIndex = b;
+                    lastIndex = a;
+                }
+            }
+            if (Math.abs(a - c) >= theBiggestSum) {
+                theBiggestSum = a + c;
+                if (a < c) {
+                    firstIndex = a;
+                    lastIndex = c;
+                } else if (a > c) {
+                    firstIndex = c;
+                    lastIndex = a;
+                }
+            }
         }
-        return new FuncResult(total, minIndexOfMinValue, maxIndexOfMaxValue);
+        int total = 0;
+        for (int i = firstIndex + 1; i < lastIndex; i++) {
+            total += inputArray[i];
+        }
+        return new FuncResult(total, firstIndex, lastIndex);
     }
 }
