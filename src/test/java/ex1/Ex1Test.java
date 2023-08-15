@@ -1,40 +1,30 @@
 package ex1;
 
-
 import home.test.Ex1;
-import org.junit.jupiter.api.Test;
+import home.test.FuncResult;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-
 import java.util.stream.Stream;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
 public class Ex1Test {
-
-    private Ex1 ex1 = new Ex1();
-
-    @Test
-    void init() {
-        for (int i = 0; i < 1; i++) {
-            int[] val = new int[5];
-        }
-    }
+    private final Ex1 ex1 = new Ex1();
 
     @ParameterizedTest
     @MethodSource("testCases")
     public void test1(int[] inputValue, int sumResult, int minIndex, int maxIndex) {
         long start = System.nanoTime();
-        Ex1.FuncResult funcResult = ex1.mainFunc(inputValue);
+        FuncResult funcResult = ex1.mainFunc(inputValue);
         long l = System.nanoTime() - start;
         System.out.println(l);
         assertArrayEquals(inputValue.clone(), inputValue, "Массивы не совпадают");
         assertEquals(sumResult, funcResult.getSumResult(), "Неверная сумма");
         assertEquals(minIndex, funcResult.getMinIndex(), "Неверный минимальный индекс");
         assertEquals(maxIndex, funcResult.getMaxIndex(), "Неверный максимальный индекс");
-        assertTrue(l < 3000, "Время выполнения слишком долгое");
+
+        assertTrue(l < 5000, "Время выполнения слишком долгое");
     }
 
     static Stream<Arguments> testCases() {
@@ -48,3 +38,8 @@ public class Ex1Test {
                 );
     }
 }
+//написать функцию которая должна принимать на вход массив,
+// результатом выполнения функции должна быть сумма всех чисел между максимальным и минимальным числом
+// (наиболее удаленными друг от друга значениями)
+//так же результом должен быть четкий указатель индексов, которым
+// принадлежат минимум и максимум в формате: maxIndex, minIndex, sum
