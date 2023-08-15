@@ -31,12 +31,15 @@ public class Ex1 {
             }
         }
         int theBiggestSum = 0;
+        int first = 0;
+        int last = 0;
         int firstIndex = 0;
         int lastIndex = 0;
         for (int i = 0; i < 2; i++) {
             int a = ar[i];
-            int b = ar[i+2];
-            int c = ar[3-i];
+            int b = ar[i + 2];
+            int c = ar[3 - i];
+
             if (Math.abs(a - b) >= theBiggestSum) {
                 theBiggestSum = a + b;
                 if (a < b) {
@@ -46,6 +49,8 @@ public class Ex1 {
                     firstIndex = b;
                     lastIndex = a;
                 }
+                first = a;
+                last = b;
             }
             if (Math.abs(a - c) >= theBiggestSum) {
                 theBiggestSum = a + c;
@@ -56,12 +61,14 @@ public class Ex1 {
                     firstIndex = c;
                     lastIndex = a;
                 }
+                first = a;
+                last = c;
             }
         }
         int total = 0;
         for (int i = firstIndex + 1; i < lastIndex; i++) {
             total += inputArray[i];
         }
-        return new FuncResult(total, firstIndex, lastIndex);
+        return new FuncResult(total, first, last);
     }
 }
